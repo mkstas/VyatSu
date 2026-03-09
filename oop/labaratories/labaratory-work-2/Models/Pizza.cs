@@ -1,34 +1,46 @@
 ﻿namespace labaratory_work_2.Models
 {
-    public enum Dough
+    enum Dough
     {
         Thin,
         Thick
-    }
+    };
 
-    public class Pizza(string name, int weight, double price)
-        : Dish(name, weight, price)
+    public class Pizza : Dish
     {
-        public Dough Dough { get; private set; } = Dough.Thick;
+        public Dough Dough { get; set; } = Dough.Thick
+
+        public Pizza() : base()
+        { 
+        }
+
+        public Pizza(string name) : base(name)
+        { 
+        }
+
+        public Pizza(string name, int weight, double price)
+            : base(name, weight, price)
+        {
+        }
+
+        public override void DisplayInfo()
+        {
+            return $"Pizza: {Name}, {Dough.ToString()} douph, {Weight} g, ${CalcFullPrice()}";
+        }
+
+        public override double CalcFullPrice()
+        {
+            return Dough == Dough.Thin ? Price * 1.3 : Price * 1.5;
+        }
 
         public void ChangeDough()
         {
             Dough = Dough == Dough.Thin ? Dough.Thick : Dough.Thin;
         }
 
-        public static void CutIntoSlices()
+        public string CutInSlices()
         {
-            Console.WriteLine("Cutting the pizza into slices...");
-        }
-
-        public override void DisplayInfo()
-        {
-            Console.WriteLine($"Pizza: {Name}, {Dough} dough, {Weight}g, ${GetFullPrice():F2}");
-        }
-
-        public override double GetFullPrice()
-        {
-            return Dough == Dough.Thin ? Price * 1.3 : Price * 1.5;
+            return "Cutting the pizza into slices...";
         }
     }
 }

@@ -6,6 +6,11 @@
 
 class Dish
 {
+private:
+	std::string _name;
+	int			_weight;
+	double		_price;
+
 public:
 	Dish()
 		: _name("Dish")
@@ -28,15 +33,14 @@ public:
 	{
 	}
 
-	std::string GetName()	const { return _name; }
-	int			GetWeight() const { return _weight; }
-	double		GetPrice()	const { return _price; }
+	std::string GetName()	const;
+	int			GetWeight() const;
+	double		GetPrice()	const;
 
-	virtual void DisplayInfo() = 0 {}
-	virtual double GetFullPrice() = 0 {}
+	void SetName(std::string name);
+	void SetWeight(int weight);
+	void SetPrice(double price);
 
-private:
-	std::string _name;
-	int			_weight;
-	double		_price;
+	virtual void   DisplayInfo() = 0;
+	virtual double CalcFullPrice() = 0;
 };

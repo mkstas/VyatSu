@@ -1,34 +1,46 @@
 ﻿namespace labaratory_work_2.Models
 {
-    public enum Dressing
+    enum Dressing
     {
         OliveOil,
         Mayonnaise
-    }
+    };
 
-    public class Salad(string name, int weight, double price)
-        : Dish(name, weight, price)
+    public class Salad : Dish
     {
-        public Dressing Dressing { get; private set; } = Dressing.OliveOil;
+        public Dressing Dressing { get; set; } = Dressing.OliveOil;
+
+        public Salad() : base()
+        {
+        }
+
+        public Salad(string name) : base(name)
+        {
+        }
+
+        public Salad(string name, int weight, double price)
+            : base(name, weight, price)
+        {
+        }
+
+        public override void DisplayInfo()
+        {
+            return $"Salad: {Name}, {Dressing.ToString()} dressing, {Weight} g, ${CalcFullPrice()}";
+        }
+
+        public override double CalcFullPrice()
+        {
+            return Dressing == Dressing.OliveOil ? Price * 1.4 : Price * 1.3;
+        }
 
         public void ChangeDressing()
         {
             Dressing = Dressing == Dressing.OliveOil ? Dressing.Mayonnaise : Dressing.OliveOil;
         }
 
-        public void TossWithDressing()
+        public string TossWithDressing()
         {
-            Console.WriteLine($"Tossing the salad with {Dressing}");
-        }
-
-        public override void DisplayInfo()
-        {
-            Console.WriteLine($"Salad: {Name}, {Dressing} dressing, {Weight}g, ${GetFullPrice():F2}, ");
-        }
-
-        public override double GetFullPrice()
-        {
-            return Dressing == Dressing.OliveOil ? Price * 1.4 : Price * 1.3;
+            return $"Tossing the salad with {Dressing.ToString()}";
         }
     }
 }

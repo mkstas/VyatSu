@@ -11,6 +11,9 @@ enum Dough
 
 class Pizza : public Dish
 {
+private:
+	Dough _dough = Dough::Thick;
+
 public:
 	Pizza() : Dish()
 	{
@@ -24,36 +27,13 @@ public:
 		: Dish(name, weight, price)
 	{
 	}
-	
-	std::string GetDough() const
-	{
-		return _dough == Dough::Thin ? "thin" : "thick";
-	}
 
-	void ChangeDough()
-	{
-		_dough = _dough == Dough::Thin ? Dough::Thick : Dough::Thin;
-	}
+	Dough GetDough() const;
+	void  SetDough(Dough dough);
 
-	void CutInSlices()
-	{
-		std::cout << "Cutting the pizza into slices..." << std::endl;
-	}
+	void ChangeDough();
+	void CutInSlices();
 
-	void DisplayInfo() override
-	{
-		std::cout << "Pizza: " << GetName() << ", "
-			<< GetDough() << " dough, "
-			<< GetWeight() << "g, $"
-			<< std::fixed << std::setprecision(2) << GetFullPrice()
-			<< std::endl;
-	}
-
-	double GetFullPrice() override
-	{
-		return _dough == Dough::Thin ? GetPrice() * 1.3 : GetPrice() * 1.5;
-	}
-
-private:
-	Dough _dough = Dough::Thick;
+	void   DisplayInfo()   override;
+	double CalcFullPrice() override;
 };
